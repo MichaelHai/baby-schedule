@@ -14,5 +14,10 @@ export interface BabyEvent {
   type: EventType;
   date: string;
   time: string;
-  sleepState?: SleepState;
+  sleepDetail?: {
+    sleepState: SleepState;
+  };
+  eatDetail?: {
+    side: 'left' | 'right';
+  }
 }

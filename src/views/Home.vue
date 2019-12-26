@@ -1,4 +1,5 @@
 import { EventType } from '@/model'
+import { EventType } from '@/model'
 <template>
   <div>
     <v-btn
@@ -70,10 +71,16 @@ import { EventType } from '@/model'
           />
           <template v-if="isSleep(eventToAdd.type)">
             <v-select
-              v-model="eventToAdd.sleepState"
+              v-model="eventToAdd.sleepDetail.sleepState"
               label="入睡状态"
               :items="AllSleepStates"
             />
+          </template>
+          <template v-if="isEat(eventToAdd.type)">
+            <v-radio-group v-model="eventToAdd.eatDetail.side" row>
+              <v-radio label="左" value="left"/>
+              <v-radio label="右" value="right"/>
+            </v-radio-group>
           </template>
         </v-card-text>
         <v-card-actions right>
@@ -94,7 +101,8 @@ import { EventType } from '@/model'
               <v-list-item-title v-text="EventName[event.type]"/>
             </v-list-item-content>
             <v-list-item-content>
-              <v-list-item-subtitle v-if="isSleep(event.type)" v-text="SleepStateName[event.sleepState]"/>
+              <v-list-item-subtitle v-if="isSleep(event.type)" v-text="SleepStateName[event.sleepDetail.sleepState]"/>
+              <v-list-item-subtitle v-if="isEat(event.type)" v-text="event.eatDetail.side === 'left' ? '左' : '右'"/>
             </v-list-item-content>
           </v-list-item>
         </v-lazy>
@@ -145,6 +153,10 @@ import { EventType } from '@/model'
       return type === EventType.Sleep;
     }
 
+    private isEat(type: EventType): boolean {
+      return type === EventType.Eat;
+    }
+
     @Watch('addEventDialog')
     private addEventDialogChanged() {
       if (this.addEventDialog) {
@@ -157,7 +169,12 @@ import { EventType } from '@/model'
         type: EventType.Sleep,
         date: `${(new Date().getFullYear())}-${this.leadingZero(new Date().getMonth() + 1)}-${this.leadingZero(new Date().getDate())}`,
         time: `${this.leadingZero(new Date().getHours())}:${this.leadingZero(new Date().getMinutes())}`,
-        sleepState: SleepState.EatToSleep,
+        sleepDetail: {
+          sleepState: SleepState.EatToSleep,
+        },
+        eatDetail: {
+          side: 'left',
+        },
       };
     }
 
