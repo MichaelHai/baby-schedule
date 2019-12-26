@@ -14,13 +14,18 @@
     <v-content>
       <router-view/>
     </v-content>
+
+    <sleeping-dialog/>
   </v-app>
 </template>
 
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
+  import SleepingDialog from '@/components/SleepingDialog.vue';
 
-  @Component({})
+  @Component({
+    components: {SleepingDialog},
+  })
   export default class App extends Vue {
   }
 </script>
