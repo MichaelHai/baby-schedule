@@ -16,15 +16,17 @@
     </v-content>
 
     <sleeping-dialog/>
+    <update-notification/>
   </v-app>
 </template>
 
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
   import SleepingDialog from '@/components/SleepingDialog.vue';
+  import UpdateNotification from '@/components/UpdateNotification.vue';
 
   @Component({
-    components: {SleepingDialog},
+    components: {UpdateNotification, SleepingDialog},
   })
   export default class App extends Vue {
   }
