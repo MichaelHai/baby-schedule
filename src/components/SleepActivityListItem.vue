@@ -7,7 +7,7 @@
       <v-list-item-title>
         {{ activity.startTime }}
         ~
-        {{ activity.endTime }}
+        {{ activity.endTime }}{{ activity.endDate !== activity.startDate ? '(+1天)' : ''}}
       </v-list-item-title>
       <v-list-item-subtitle>{{ duration }}</v-list-item-subtitle>
     </v-list-item-content>
