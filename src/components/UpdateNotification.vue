@@ -10,7 +10,7 @@
     <v-spacer/>
     <v-btn
       dark
-      flat
+      text
       color="#00f500"
       @click.native="refreshApp"
     >
