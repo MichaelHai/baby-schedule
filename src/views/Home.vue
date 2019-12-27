@@ -1,5 +1,3 @@
-import { EventType } from '@/model'
-import { EventType } from '@/model'
 <template>
   <div>
     <v-speed-dial
