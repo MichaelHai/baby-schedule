@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.bc7517bb5ca691629f1f8f0bb873fb2b.js"
+  "/precache-manifest.6cd46ca846cca9054fdc671aa2198a85.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "baby-schedule"});

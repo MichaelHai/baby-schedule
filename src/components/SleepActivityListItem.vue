@@ -5,9 +5,9 @@
     </v-list-item-icon>
     <v-list-item-content>
       <v-list-item-title>
-        {{ activity.startTime }}
+        {{ activity.startDate !== date ? '(-1天)' : ''}}{{ activity.startTime }}
         ~
-        {{ activity.endTime }}{{ activity.endDate !== activity.startDate ? '(+1天)' : ''}}
+        {{ activity.endTime }}{{ activity.endDate !== date ? '(+1天)' : ''}}
       </v-list-item-title>
       <v-list-item-subtitle>{{ duration }}</v-list-item-subtitle>
     </v-list-item-content>
@@ -20,28 +20,18 @@
 <script lang="ts">
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import {SleepActivity, SleepStateName} from '@/model';
+  import {createDate} from '@/model/Utils';
 
   @Component
   export default class SleepActivityListItem extends Vue {
     @Prop()
     private activity!: SleepActivity;
-
-    private createDate(dateStr: string, timeStr: string): Date {
-      const date: Date = new Date();
-      const dateSplitted: Array<string> = dateStr.split('-');
-      date.setFullYear(Number(dateSplitted[0]));
-      date.setMonth(Number(dateSplitted[1]) - 1);
-      date.setDate(Number(dateSplitted[2]));
-
-      const timeSplitted: Array<string> = timeStr.split(':');
-      date.setHours(Number(timeSplitted[0]));
-      date.setMinutes(Number(timeSplitted[1]));
-      return date;
-    }
+    @Prop()
+    private date!: string;
 
     private get duration(): string {
-      const start = this.createDate(this.activity.startDate, this.activity.startTime);
-      const end = this.createDate(this.activity.endDate, this.activity.endTime);
+      const start = createDate(this.activity.startDate, this.activity.startTime);
+      const end = createDate(this.activity.endDate, this.activity.endTime);
       const durationMill = end.getTime() - start.getTime();
       const durationMinutes = durationMill / 1000 / 60;
       const durationHours = Math.floor(durationMinutes / 60);

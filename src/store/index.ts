@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex, {StoreOptions} from 'vuex';
 import VuexPersistence from 'vuex-persist';
 import {ActivityType, BabyActivity, DateAndTime, SleepActivity, SleepState} from '@/model';
+import {createDate} from '@/model/Utils';
 
 Vue.use(Vuex);
 
@@ -38,7 +39,7 @@ function addActivity(state: BabyScheduleState, activity: BabyActivity) {
 function addActivityToDay(state: BabyScheduleState, date: string, activity: BabyActivity) {
   const activities = state.activities[date] || [];
   activities.push(activity);
-  activities.sort((a1, a2) => a1.startTime < a2.startTime ? -1 : 1);
+  activities.sort((a1, a2) => createDate(a2.startDate, a2.startTime).getTime() - createDate(a1.startDate, a1.startTime).getTime());
   Vue.set(state.activities, date, activities);
 }
 

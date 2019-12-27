@@ -20,3 +20,16 @@ export function currentDateAndTime(): DateAndTime {
     time: `${leadingZero(date.getHours())}:${leadingZero(date.getMinutes())}`,
   };
 }
+
+export function createDate(dateStr: string, timeStr: string): Date {
+  const date: Date = new Date();
+  const dateSplitted: Array<string> = dateStr.split('-');
+  date.setFullYear(Number(dateSplitted[0]));
+  date.setMonth(Number(dateSplitted[1]) - 1);
+  date.setDate(Number(dateSplitted[2]));
+
+  const timeSplitted: Array<string> = timeStr.split(':');
+  date.setHours(Number(timeSplitted[0]));
+  date.setMinutes(Number(timeSplitted[1]));
+  return date;
+}

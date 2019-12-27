@@ -6,7 +6,7 @@ import { ActivityType } from '@/model'
       <v-divider :key="`${date}_divider`"/>
       <template v-for="activity in activities[date]">
         <v-lazy dense :key="`${date}_${activity.startTime}`">
-          <sleep-activity-list-item v-if="isSleep(activity.type)" :activity="activity"/>
+          <sleep-activity-list-item v-if="isSleep(activity.type)" :activity="activity" :date="date"/>
         </v-lazy>
         <v-divider :key="`${date}_${activity.startTime}__divider`" inset/>
       </template>
