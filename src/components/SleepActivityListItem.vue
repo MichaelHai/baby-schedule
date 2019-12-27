@@ -26,13 +26,26 @@
     @Prop()
     private activity!: SleepActivity;
 
+    private createDate(dateStr: string, timeStr: string): Date {
+      const date: Date = new Date();
+      const dateSplitted: Array<string> = dateStr.split('-');
+      date.setFullYear(Number(dateSplitted[0]));
+      date.setMonth(Number(dateSplitted[1]) - 1);
+      date.setDate(Number(dateSplitted[2]));
+
+      const timeSplitted: Array<string> = timeStr.split(':');
+      date.setHours(Number(timeSplitted[0]));
+      date.setMinutes(Number(timeSplitted[1]));
+      return date;
+    }
+
     private get duration(): string {
-      const start = new Date(`${this.activity.startDate} ${this.activity.startTime}`);
-      const end = new Date(`${this.activity.endDate} ${this.activity.endTime}`);
+      const start = this.createDate(this.activity.startDate, this.activity.startTime);
+      const end = this.createDate(this.activity.endDate, this.activity.endTime);
       const durationMill = end.getTime() - start.getTime();
       const durationMinutes = durationMill / 1000 / 60;
       const durationHours = Math.floor(durationMinutes / 60);
-      const durationRemainMinutes = durationMinutes % 60;
+      const durationRemainMinutes = Math.floor(durationMinutes % 60);
       if (durationHours === 0) {
         return `${durationRemainMinutes}分钟`;
       } else {
