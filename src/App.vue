@@ -8,7 +8,7 @@
         src="@/assets/logo.png"
         width="40"
       />
-      <v-toolbar-title title>宝宝的生活</v-toolbar-title>
+      <v-toolbar-title title>动动的生活</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
